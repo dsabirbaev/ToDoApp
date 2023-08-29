@@ -21,7 +21,7 @@ const index = () => {
             case "SEND":
                 return { ...state, todo: [...state.todo, action.payload] };
             case "DELETE":
-                return { ...state, todo: state.todo.filter(item => item.id !== action.payload) };
+                return { ...state, todo: [...action.payload] };
             default:
                 return state;
         }
@@ -47,7 +47,8 @@ const index = () => {
     }
 
     const deleteTask = (taskId) => {
-        dispatch({ type: "DELETE", payload: taskId });
+        const delTask = state.todo.filter(item => item.id !== taskId);
+        dispatch({ type: "DELETE", payload: delTask });
         toast.success("Deleted task!", {autoClose: 1000});
     };
 
